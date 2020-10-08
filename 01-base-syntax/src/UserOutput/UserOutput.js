@@ -1,9 +1,13 @@
 import React from 'react';
 
-const useroutput = (props) => {
+const userOutput = (props) => {
     return (
-      <p>{props.message} Especially for {props.username}.</p>
+      <div>
+        <p>{props.message} Especially for {props.username}.</p>
+        <p>Random text</p>
+      </div>
+      
     )
 }
 
-export default useroutput;
+export default userOutput;
