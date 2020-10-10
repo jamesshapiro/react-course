@@ -8,8 +8,7 @@ import CharComponent from './CharComponent/CharComponent';
 class App extends Component {
 
   state = {
-    textField: "",
-    textFieldLength: 0
+    textField: ""
   }
 
   deleteLetterHandler = (letterIndex) => {
@@ -23,28 +22,19 @@ class App extends Component {
 
   textChangedHandler = (event) => {
     this.setState({
-      textField: event.target.value,
-      textFieldLength: event.target.value.length
+      textField: event.target.value
     })
   };
 
   render() {
-    const style = {
-      display: 'inline-block', 
-      padding: '16px', 
-      textAlign: 'center', 
-      margin: '16px', 
-      border: '1px solid black'
-    };
-
     let charComponents = null
     charComponents = (
       <div>
         {this.state.textField.split('').map((letter, index) => {
           return <CharComponent
-            style={style}
             click={() => this.deleteLetterHandler(index)}
             letter={letter}
+            key={index}
           />
         })}
       </div>
@@ -61,10 +51,11 @@ class App extends Component {
           <li>When you click a CharComponent, it should be removed from the entered text.</li>
         </ol>
         <p>Hint: Keep in mind that JavaScript strings are basically arrays!</p>
+        <hr />
         <input type="text" onChange={this.textChangedHandler} value={this.state.textField} />
-        <p>{this.state.textFieldLength}</p>
+        <p>{this.state.textField.length}</p>
         <ValidationComponent
-          textFieldLength={this.state.textFieldLength}
+          textFieldLength={this.state.textField.length}
         />
         {charComponents}
       </div>
