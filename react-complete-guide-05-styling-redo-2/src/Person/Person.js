@@ -1,7 +1,6 @@
 import React from 'react';
-//import styled from 'styled-components'
 
-//import './Person.css'
+//import classes from './Person.module.css'
 
 /*const StyledDiv = styled.div`
     width: 60%;
