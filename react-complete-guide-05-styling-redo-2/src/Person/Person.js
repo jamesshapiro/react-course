@@ -1,9 +1,9 @@
 import React from 'react';
-import styled from 'styled-components'
+//import styled from 'styled-components'
 
 //import './Person.css'
 
-const StyledDiv = styled.div`
+/*const StyledDiv = styled.div`
     width: 60%;
     margin: 16px auto;
     border: 1px solid #eee;
@@ -14,15 +14,15 @@ const StyledDiv = styled.div`
     @media (min-width: 500px) {
         width: 450px;
     }
-`
+`*/
 
 const person = (props) => {
     return (
-        <StyledDiv>
+        <div>
             <p onClick={props.click}>I'm a Person! My name is {props.name} and I am {props.age} years old!</p>
             <p>{props.children}</p>
             <input type="text" onChange={props.changed} value={props.name} />
-        </StyledDiv>
+        </div>
     )
 }
 
