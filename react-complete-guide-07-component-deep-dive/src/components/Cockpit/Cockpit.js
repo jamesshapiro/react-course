@@ -9,7 +9,7 @@ const Cockpit = (props) => {
       alert('Saved data to cloud!');
     },1000)
     // Http request...
-  }, [props.persons]);
+  }, []);
 
   // can have additional useEffects for different reactions to other pieces
   // of data aside from just props.persons   . You can have as many useEffects
