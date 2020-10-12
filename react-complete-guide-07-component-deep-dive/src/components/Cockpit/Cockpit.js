@@ -6,11 +6,10 @@ const Cockpit = (props) => {
   // runs on initialization and return function runs on component unmounting/destruction
   useEffect(() => {
     console.log('[Cockpit.js] useEffect');
-    const timer = setTimeout(() => {
+    setTimeout(() => {
       alert('Saved data to cloud!');
     },1000);
     return () => {
-      clearTimeout(timer)
       console.log('[Cockpit.js] cleanup work in useEffect')
     };
     // Http request...
