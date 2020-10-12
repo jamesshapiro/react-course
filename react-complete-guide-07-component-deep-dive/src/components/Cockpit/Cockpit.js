@@ -3,13 +3,27 @@ import React, { useEffect } from 'react';
 import classes from './Cockpit.module.css'
 
 const Cockpit = (props) => {
+  // runs on initialization and return function runs on component unmounting/destruction
   useEffect(() => {
     console.log('[Cockpit.js] useEffect');
     setTimeout(() => {
       alert('Saved data to cloud!');
-    },1000)
+    },1000);
+    return () => {
+      console.log('[Cockpit.js] cleanup work in useEffect')
+    };
     // Http request...
   }, []);
+  
+  // runs unconditionally (I believe every time Cockpit is rendered but not sure)
+  useEffect(() => {
+    console.log('[Cockpit.js] 2nd useEffect');
+    return () => {
+      console.log('[Cockpit.js] cleanup work in 2nd useEffect')
+    };
+  });
+
+  
 
   // can have additional useEffects for different reactions to other pieces
   // of data aside from just props.persons   . You can have as many useEffects
