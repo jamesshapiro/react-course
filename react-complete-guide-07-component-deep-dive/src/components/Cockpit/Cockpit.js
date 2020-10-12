@@ -5,8 +5,15 @@ import classes from './Cockpit.module.css'
 const Cockpit = (props) => {
   useEffect(() => {
     console.log('[Cockpit.js] useEffect');
+    setTimeout(() => {
+      alert('Saved data to cloud!');
+    },1000)
     // Http request...
-  });
+  }, [props.persons]);
+
+  // can have additional useEffects for different reactions to other pieces
+  // of data aside from just props.persons   . You can have as many useEffects
+  // as you want.
 
   const assignedClasses = []; // "red bold"
   let btnClass = '';
