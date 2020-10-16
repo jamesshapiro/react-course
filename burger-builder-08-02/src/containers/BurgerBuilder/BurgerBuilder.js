@@ -66,15 +66,19 @@ class BurgerBuilder extends Component {
     }
 
     addIngredientHandler = (type) => {
-        this.changeIngredientHandler(type, false)
+        this.changeIngredientHandler(type, false);
     }
 
     removeIngredientHandler = (type) => {
-        this.changeIngredientHandler(type, true)
+        this.changeIngredientHandler(type, true);
     }
 
     purchaseHandler = () => {
-        this.setState({purchasing: true})
+        this.setState({purchasing: true});
+    }
+
+    purchaseCancelHandler = () => {
+        this.setState({purchasing: false});
     }
 
     render() {
@@ -82,11 +86,14 @@ class BurgerBuilder extends Component {
             ...this.state.ingredients
         };
         for (let key in disabledInfo) {
-            disabledInfo[key] = disabledInfo[key] < 1
+            disabledInfo[key] = disabledInfo[key] < 1;
         }
         return (
             <Aux>
-                <Modal show={this.state.purchasing}>
+                <Modal 
+                    show={this.state.purchasing}
+                    modalClosed={this.purchaseCancelHandler}
+                >
                     <OrderSummary ingredients={this.state.ingredients} />
                 </Modal>
                 <Burger ingredients={this.state.ingredients} />
