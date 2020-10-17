@@ -9,6 +9,9 @@ const withErrorHandler = ( WrappedComponent, axios ) => {
             error: null
         }
 
+        // Note: this really should be set up in the constructor so that it captures
+        // network errors from the initial get request used to set up the ingredients
+        // list
         componentDidMount () {
             axios.interceptors.request.use(req => {
                 this.setState({error: null});
