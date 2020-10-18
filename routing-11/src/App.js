@@ -11,7 +11,6 @@ class App extends Component {
           <Blog />
         </div>
       </BrowserRouter>
-
     );
   }
 }
