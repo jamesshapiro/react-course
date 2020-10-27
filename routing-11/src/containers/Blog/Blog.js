@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 // import axios from 'axios';
-import axios from '../../axios';
+//import axios from '../../axios';
 import Posts from './Posts/Posts';
 import NewPost from './NewPost/NewPost'
 //import FullPost from './FullPost/FullPost'
