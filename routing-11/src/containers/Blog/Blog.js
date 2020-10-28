@@ -10,6 +10,9 @@ import { Route, NavLink, Switch, Redirect } from 'react-router-dom';
 import './Blog.css';
 
 class Blog extends Component {
+    state = {
+        auth: false
+    }
 
     render() {
         
@@ -38,7 +41,7 @@ class Blog extends Component {
                 <Route path="/" render={() => <h1>Home 2</h1>}/> */}
                 {/* Note: the switch statement here is technically unnecessary. */}
                 <Switch>
-                    <Route path="/new-post" component={NewPost} />
+                    {this.state.auth ? <Route path="/new-post" component={NewPost} /> : null}
                     <Route path="/posts" component={Posts} />
                     <Redirect from="/" to="/posts" />
                     {/* <Route path="/" component={Posts} /> */}
