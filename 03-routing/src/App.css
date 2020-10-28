@@ -1,0 +1,23 @@
+.MyNavbar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.MyNavbar li {
+    display: inline-block;
+    margin: 20px;
+}
+
+.MyNavbar a {
+    text-decoration: none;
+    color: black;
+}
+
+.MyNavbar a:hover,
+.MyNavbar a:active,
+.MyNavbar a.active {
+    color: #fa923f;
+}
