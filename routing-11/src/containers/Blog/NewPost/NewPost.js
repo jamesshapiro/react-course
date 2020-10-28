@@ -25,7 +25,10 @@ class NewPost extends Component {
         axios.post('/posts', post)
             .then(response => {
                 console.log(response);
-                this.setState({submitted: true})
+                this.props.history.push('/posts');
+                //ALTERNATIVELY this.props.history.replace('/posts'); will do the same as a router REDIRECT
+                // namely the back button will not take you back.
+                //this.setState({submitted: true})
             });
     }
 
