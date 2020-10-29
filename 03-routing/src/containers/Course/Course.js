@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 
 class Course extends Component {
-    componentDidMount() {
-
-    }
 
     render () {
         const query = new URLSearchParams(this.props.location.search);
