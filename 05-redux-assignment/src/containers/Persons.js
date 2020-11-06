@@ -9,7 +9,7 @@ class Persons extends Component {
     render () {
         return (
             <div>
-                <AddPerson personAdded={() => this.props.onAddPerson({ id: Math.random(), name: 'James', age: Math.floor( Math.random() * 40 )})} />
+                <AddPerson personAdded={this.props.onAddPerson} />
                 {this.props.storedResults.map(person => (
                     <Person 
                         key={person.id}
