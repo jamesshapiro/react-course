@@ -14,39 +14,40 @@ const INGREDIENT_PRICES = {
     bacon: 0.7
 }
 
+const changeIngredient = (state, action, add) => {
+    let multiplier = 1
+    if (!add) {
+        multiplier = -1
+    }
+    const updatedIngredient = { [action.ingredientName]: state.ingredients[action.ingredientName] + (multiplier * 1) }
+    const updatedIngredients = updateObject(state.ingredients, updatedIngredient)
+    const updatedState = {
+        ingredients: updatedIngredients,
+        totalPrice: state.totalPrice + (multiplier * INGREDIENT_PRICES[action.ingredientName])
+    }
+    return updateObject(state, updatedState)
+}
+
+const setIngredients = (state, action) => {
+    return updateObject(state, {
+        ingredients: {
+            lettuce: action.ingredients.lettuce,
+            bacon: action.ingredients.bacon,
+            cheese: action.ingredients.cheese,
+            beef: action.ingredients.beef
+        },
+        totalPrice: 4,
+        error: false
+    });
+}
+
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case actionTypes.ADD_INGREDIENT: 
-            const updatedIngredient = { [action.ingredientName]: state.ingredients[action.ingredientName] + 1 }
-            const updatedIngredients = updateObject(state.ingredients, updatedIngredient)
-            const updatedState = {
-                ingredients: updatedIngredients,
-                totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredientName]
-            }
-            return updateObject(state, updatedState)
-        case actionTypes.REMOVE_INGREDIENT:
-            const updatedIngredient2 = { [action.ingredientName]: state.ingredients[action.ingredientName] - 1 }
-            const updatedIngredients2 = updateObject(state.ingredients, updatedIngredient2)
-            const updatedState2 = {
-                ingredients: updatedIngredients2,
-                totalPrice: state.totalPrice - INGREDIENT_PRICES[action.ingredientName]
-            }
-            return updateObject(state, updatedState2)
-        case actionTypes.SET_INGREDIENTS:
-            return updateObject(state, {
-                ingredients: {
-                    lettuce: action.ingredients.lettuce,
-                    bacon: action.ingredients.bacon,
-                    cheese: action.ingredients.cheese,
-                    beef: action.ingredients.beef
-                },
-                totalPrice: 4,
-                error: false
-            });
-        case actionTypes.FETCH_INGREDIENTS_FAILED:
-            return updateObject(state, {error: true});
-        default:
-            return state;
+        case actionTypes.ADD_INGREDIENT: return changeIngredient(state, action, true);
+        case actionTypes.REMOVE_INGREDIENT: return changeIngredient(state, action, false);
+        case actionTypes.SET_INGREDIENTS: return setIngredients(state, action);
+        case actionTypes.FETCH_INGREDIENTS_FAILED: return updateObject(state, { error: true });
+        default: return state;
     }
 };
 
