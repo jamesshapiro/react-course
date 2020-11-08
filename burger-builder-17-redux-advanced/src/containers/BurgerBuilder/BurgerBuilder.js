@@ -8,8 +8,8 @@ import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler'
-import axios from '../../axios-orders';
 import * as burgerBuilderActions from '../../store/actions/index'
+import axios from '../../axios-orders';
 
 class BurgerBuilder extends Component {
     // constructor(props) {
@@ -17,20 +17,11 @@ class BurgerBuilder extends Component {
     //     this.state = {...}
     // }
     state = {
-        purchasing: false,
-        loading: false,
-        error: null
+        purchasing: false
     }
 
     componentDidMount() {
-        console.log(this.props)
-        // axios.get('https://react-course-demo-1bf90.firebaseio.com/ingredients.json')
-        //     .then(response => {
-        //         this.setState({ ingredients: response.data })
-        //     })
-        //     .catch(error => {
-        //         this.setState({error: true})
-        //     })
+        console.log(this.props);
     }
 
     updatePurchaseState(ingredients) {
@@ -66,6 +57,7 @@ class BurgerBuilder extends Component {
 
         let orderSummary = null;
         let burger = this.state.error ? <p>Ingredients can't be loaded </p> : <Spinner />;
+        
         if (this.props.ings) {
             burger = (
                 <Aux>
@@ -86,9 +78,7 @@ class BurgerBuilder extends Component {
                 purchaseContinued={this.purchaseContinueHandler}
             />)
         }
-        if (this.state.loading) {
-            orderSummary = <Spinner />;
-        }
+        
         return (
             <Aux>
                 <Modal
