@@ -8,7 +8,7 @@ import axios from '../../../axios-orders';
 import Input from '../../../components/UI/Input/Input';
 import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
 import * as actions from '../../../store/actions/index';
-import { updateObject } from '../../../shared/utility';
+import { updateObject, checkValidity } from '../../../shared/utility';
 
 class ContactData extends Component {
     state = {
@@ -114,29 +114,11 @@ class ContactData extends Component {
 
     }
 
-    checkValidity(value, rules) {
-        let isValid = true;
-
-        if (rules.required) {
-            isValid = isValid && value.trim() !== '';
-        }
-
-        if (rules.minLength) {
-            isValid = isValid && value.trim().length >= rules.minLength;
-        }
-
-        if (rules.maxLength) {
-            isValid = isValid && value.trim().length <= rules.maxLength;
-        }
-
-        return isValid;
-    }
-
     inputChangedHandler = (event, inputIdentifier) => {
         
         const updatedOrderFormElement = updateObject(this.state.orderForm[inputIdentifier], {
             value: event.target.value,
-            valid: this.checkValidity(
+            valid: checkValidity(
                 event.target.value,
                 this.state.orderForm[inputIdentifier].validation
             ),
@@ -149,10 +131,6 @@ class ContactData extends Component {
         
         let formIsValid = true;
         for (let inputIdentifier in updatedOrderForm) {
-            console.log('=========================')
-            console.log(inputIdentifier);
-            console.log(updatedOrderForm[inputIdentifier])
-            console.log('=========================')
             formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid;
         }
 
