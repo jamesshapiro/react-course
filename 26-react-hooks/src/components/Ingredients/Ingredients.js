@@ -28,6 +28,7 @@ const Ingredients = () => {
     sendRequest,
     reqExtra,
     reqIdentifier,
+    clear,
   } = useHttp();
   useHttp();
 
@@ -47,31 +48,18 @@ const Ingredients = () => {
     dispatch({ type: "SET", ingredients: filteredIngredients });
   }, []);
 
-  const addIngredientHandler = useCallback((ingredient) => {
-    sendRequest(
-      "https://react-hooks-update-a1401.firebaseio.com/ingredients.json",
-      "POST",
-      JSON.stringify(ingredient),
-      ingredient,
-      "ADD_INGREDIENT"
-    );
-    // dispatchHttp({ type: "SEND" });
-    // fetch("https://react-hooks-update-a1401.firebaseio.com/ingredients.json", {
-    //   method: "POST",
-    //   body: JSON.stringify(ingredient),
-    //   headers: { "Content-Type": "application/json" },
-    // })
-    //   .then((response) => {
-    //     dispatchHttp({ type: "RESPONSE" });
-    //     return response.json();
-    //   })
-    //   .then((responseData) => {
-    //     dispatch({
-    //       type: "ADD",
-    //       ingredient: { id: responseData.name, ...ingredient },
-    //     });
-    //   });
-  }, []);
+  const addIngredientHandler = useCallback(
+    (ingredient) => {
+      sendRequest(
+        "https://react-hooks-update-a1401.firebaseio.com/ingredients.json",
+        "POST",
+        JSON.stringify(ingredient),
+        ingredient,
+        "ADD_INGREDIENT"
+      );
+    },
+    [sendRequest]
+  );
 
   const removeIngredientHandler = useCallback(
     (ingredientId) => {
@@ -87,10 +75,6 @@ const Ingredients = () => {
     [sendRequest]
   );
 
-  const clearError = useCallback(() => {
-    // dispatchHttp({ type: "CLEAR" });
-  }, []);
-
   const ingredientList = useMemo(() => {
     return (
       <IngredientList
@@ -102,7 +86,7 @@ const Ingredients = () => {
 
   return (
     <div className="App">
-      {error && <ErrorModal onClose={clearError}>{error}</ErrorModal>}
+      {error && <ErrorModal onClose={clear}>{error}</ErrorModal>}
       <IngredientForm
         onAddIngredient={addIngredientHandler}
         loading={isLoading}
