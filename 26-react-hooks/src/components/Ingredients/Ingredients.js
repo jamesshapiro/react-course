@@ -21,18 +21,40 @@ const ingredientReducer = (currentIngredients, action) => {
 
 const Ingredients = () => {
   const [userIngredients, dispatch] = useReducer(ingredientReducer, []);
-  const { isLoading, error, data, sendRequest } = useHttp();
+  const {
+    isLoading,
+    error,
+    data,
+    sendRequest,
+    reqExtra,
+    reqIdentifier,
+  } = useHttp();
   useHttp();
 
   useEffect(() => {
-    console.log("RENDERING INGREDIENTS", userIngredients);
-  }, [userIngredients]);
+    console.log(reqIdentifier);
+    if (!isLoading && !error && reqIdentifier === "REMOVE_INGREDIENT") {
+      dispatch({ type: "DELETE", id: reqExtra });
+    } else if (!isLoading && !error && reqIdentifier === "ADD_INGREDIENT") {
+      dispatch({
+        type: "ADD",
+        ingredient: { id: data.name, ...reqExtra },
+      });
+    }
+  }, [data, reqExtra, reqIdentifier, isLoading, error]);
 
   const filteredIngredientsHandler = useCallback((filteredIngredients) => {
     dispatch({ type: "SET", ingredients: filteredIngredients });
   }, []);
 
   const addIngredientHandler = useCallback((ingredient) => {
+    sendRequest(
+      "https://react-hooks-update-a1401.firebaseio.com/ingredients.json",
+      "POST",
+      JSON.stringify(ingredient),
+      ingredient,
+      "ADD_INGREDIENT"
+    );
     // dispatchHttp({ type: "SEND" });
     // fetch("https://react-hooks-update-a1401.firebaseio.com/ingredients.json", {
     //   method: "POST",
@@ -53,9 +75,13 @@ const Ingredients = () => {
 
   const removeIngredientHandler = useCallback(
     (ingredientId) => {
+      console.log("REMOVE INGREDIENT HANDLER");
       sendRequest(
         `https://react-hooks-update-a1401.firebaseio.com/ingredients/${ingredientId}.json`,
-        "DELETE"
+        "DELETE",
+        null,
+        ingredientId,
+        "REMOVE_INGREDIENT"
       );
     },
     [sendRequest]
@@ -79,7 +105,7 @@ const Ingredients = () => {
       {error && <ErrorModal onClose={clearError}>{error}</ErrorModal>}
       <IngredientForm
         onAddIngredient={addIngredientHandler}
-        loading={loading}
+        loading={isLoading}
       />
 
       <section>
