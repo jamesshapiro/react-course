@@ -48,7 +48,7 @@ const Ingredients = () => {
     dispatch({ type: "SET", ingredients: filteredIngredients });
   }, []);
 
-  const addIngredientHandler = (ingredient) => {
+  const addIngredientHandler = useCallback((ingredient) => {
     dispatchHttp({ type: "SEND" });
     fetch("https://react-hooks-update-a1401.firebaseio.com/ingredients.json", {
       method: "POST",
@@ -65,9 +65,9 @@ const Ingredients = () => {
           ingredient: { id: responseData.name, ...ingredient },
         });
       });
-  };
+  }, []);
 
-  const removeIngredientHandler = (ingredientId) => {
+  const removeIngredientHandler = useCallback((ingredientId) => {
     dispatchHttp({ type: "SEND" });
     fetch(
       `https://react-hooks-update-a1401.firebaseio.com/ingredients/${ingredientId}.json`,
@@ -85,7 +85,7 @@ const Ingredients = () => {
       .catch((error) => {
         dispatchHttp({ type: "ERROR", errorMessage: "Something went wrong!" });
       });
-  };
+  }, []);
 
   const clearError = () => {
     dispatchHttp({ type: "CLEAR" });
